@@ -1,26 +1,161 @@
-@import "tailwindcss";
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+  html {
+  scroll-behavior: smooth;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+  /**
+   * Tailwind CSS theme - Turbo Bites dark, aggressive branding
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+  */
+  
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Dark base */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+
+    /* Cards - slightly lighter than background */
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    /* Popover */
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary - Flame Red/Orange */
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 8%;
+
+    /* Secondary - Deep orange */
+    --secondary: 20 90% 45%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Muted - gray tones */
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 65%;
+
+    /* Accent - Bright flame yellow */
+    --accent: 40 100% 50%;
+    --accent-foreground: 0 0% 8%;
+
+    /* Destructive - red for danger */
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Border - dark gray */
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 25 95% 53%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 25 95% 53%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 40 100% 50%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 25 95% 53%;
+  }
+  
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Grain/noise overlay effect */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    z-index: -1;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* Flame glow effects */
+  .flame-glow {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+  }
+
+  .flame-glow-lg {
+    box-shadow: 0 0 60px rgba(249, 115, 22, 0.6), 0 0 120px rgba(249, 115, 22, 0.4);
+  }
+
+  /* Aggressive button styling */
+  .btn-aggressive {
+    @apply relative px-8 py-3 font-bold uppercase tracking-tight;
+    @apply bg-primary hover:bg-secondary text-primary-foreground;
+    @apply transition-all duration-200 ease-out;
+    @apply rounded-none;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-aggressive:hover {
+    @apply flame-glow;
+    transform: translateY(-2px);
+  }
+
+  .btn-aggressive:active {
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  @keyframes slow-zoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.07); }
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 10s linear infinite alternate;
+  }
 }
