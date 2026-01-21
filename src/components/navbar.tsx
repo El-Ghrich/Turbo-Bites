@@ -77,10 +77,14 @@ export function Navbar() {
 
         {/* --- DESKTOP ACTION BUTTON --- */}
         <div className="hidden md:block">
-          <button className="group relative px-6 py-2 bg-transparent border border-white/20 text-white font-bold uppercase tracking-wider text-xs overflow-hidden hover:border-flame-500 skew-x-[-10deg]">
+          <Link href={'/book-table'}>
+          <button
+           className="group relative px-6 py-2 bg-transparent border border-white/20 text-white font-bold uppercase tracking-wider text-xs overflow-hidden hover:border-flame-500 skew-x-[-10deg]">
             <span className="absolute inset-0 w-0 bg-flame-600 transition-all duration-[250ms] ease-out group-hover:w-full" />
+           
             <span className="relative z-10 skew-x-[10deg]">Book Table</span>
           </button>
+          </Link>
         </div>
 
         {/* ==============================

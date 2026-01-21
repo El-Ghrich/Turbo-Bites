@@ -1,6 +1,10 @@
+"use-client"
 import Link from "next/link";
+import { useState } from "react";
 
 export function FinalCTA() {
+    const [isOrderOpen, setIsOrderOpen] = useState(false);
+  
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
       {/* Clean dark background */}
@@ -28,7 +32,8 @@ export function FinalCTA() {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <Link href="/order">
-          <button className="btn-aggressive px-12 py-4 text-lg bg-gradient-to-br from-flame-500 to-flame-600 hover:from-flame-400 hover:to-flame-500 shadow-2xl shadow-flame-500/50 hover:shadow-flame-400/50">
+          <button onClick={() => setIsOrderOpen(true)}
+          className="btn-aggressive px-12 py-4 text-lg bg-gradient-to-br from-flame-500 to-flame-600 hover:from-flame-400 hover:to-flame-500 shadow-2xl shadow-flame-500/50 hover:shadow-flame-400/50">
             ORDER NOW
           </button>
           </Link>

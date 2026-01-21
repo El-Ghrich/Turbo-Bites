@@ -1,7 +1,13 @@
+"use-client"
 import Link from "next/link";
 import { HeroBackground } from "./HeroBackground";
+import {OrderModal} from './order-modal'
+import { useState } from "react";
+
+
 
 export function Hero() {
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
   return (
     // Removed 'grain-overlay' and background colors for transparency
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -36,7 +42,8 @@ export function Hero() {
         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center animate-fade-in-up delay-200">
           
           {/* Primary Button (Kept mostly the same) */}
-          <button className="btn-aggressive px-8 py-4 bg-gradient-to-br from-flame-500 to-flame-600 hover:from-flame-400 hover:to-flame-500 text-white font-bold uppercase tracking-tight shadow-lg shadow-flame-500/30 hover:shadow-flame-500/60 hover:-translate-y-1 transition-all duration-200 skew-x-[-10deg]">
+          <button onClick={() => setIsOrderOpen(true)}
+          className="btn-aggressive px-8 py-4 bg-gradient-to-br from-flame-500 to-flame-600 hover:from-flame-400 hover:to-flame-500 text-white font-bold uppercase tracking-tight shadow-lg shadow-flame-500/30 hover:shadow-flame-500/60 hover:-translate-y-1 transition-all duration-200 skew-x-[-10deg]">
             ORDER NOW
           </button>
 
@@ -72,6 +79,8 @@ export function Hero() {
           </div>
         </div>
       </div>
+      <OrderModal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)} />
     </div>
+    
   );
 }
